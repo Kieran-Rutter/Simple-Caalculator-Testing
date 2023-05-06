@@ -1,11 +1,11 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLineEdit
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QSpacerItem ,QPushButton, QLineEdit, QListWidget, QSizePolicy
 
 class Calculator(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Calculator")
-        self.setFixedSize(300, 200)
+        self.setFixedSize(400, 400)
         self.initUI()
 
     def initUI(self):
@@ -18,6 +18,13 @@ class Calculator(QMainWindow):
         self.display = QLineEdit(self)
         self.display.setFixedHeight(35)
         vbox.addWidget(self.display)
+
+        #spacer_item = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        #vbox.addItem(spacer_item)
+
+        self.history = QListWidget(self)
+        self.history.setFixedHeight(50)
+        vbox.addWidget(self.history)
 
         hbox.addWidget(self.createButton('7'))
         hbox.addWidget(self.createButton('8'))
@@ -58,6 +65,7 @@ class Calculator(QMainWindow):
         if text == '=':
             try:
                 result = str(eval(self.display.text()))
+                self.history.addItem(self.display.text() + " = " + result)
             except:
                 result = 'Error'
             self.display.setText(result)

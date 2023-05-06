@@ -49,3 +49,11 @@ def test_clear_display():
     calc.buttonClicked('C')
     assert calc.display.text() == ''
     app.exit()
+
+def test_history_save():
+    app = QApplication([])
+    calc = Calculator()
+    calc.display.setText('3+4')
+    calc.buttonClicked('=')
+    assert calc.history.item(calc.history.count() - 1).text() == '3+4 = 7'
+
